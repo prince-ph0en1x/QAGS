@@ -2,7 +2,7 @@
 
 echo "@$ : Compiling Program with OpenQL"
 
-python3 qg_v0p1.py
+python3 qg_v0p3.py
 
 echo "@$ : Running qasm on QX Simulator"
 
