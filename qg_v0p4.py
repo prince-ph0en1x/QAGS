@@ -1,6 +1,6 @@
-## Version Plan: Code to test Grover search using OpenQL and QX_Simulator
+## Version Plan: Code to create custom Oracles for Grover search using OpenQL and QX_Simulator
 
-## \date: 15-11-2017 - 24-11-2017
+## \date: 24-11-2017 - __-11-2017
 ## \author: Aritra Sarkar (prince-ph0en1x)
 
 ## \project: Quantum-accelerated Genome-sequencing
@@ -172,4 +172,4 @@ def showQasm():
 
 if __name__ == '__main__':
     grover()
-    showQasm()
+    #showQasm()
