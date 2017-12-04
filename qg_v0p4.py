@@ -107,7 +107,7 @@ def simon():
 def grover():
 	config_fn = os.path.join('qg_v0p1.json')
 	platform  = ql.Platform('platform_none', config_fn)
-	num_qubits = 2
+	num_qubits = 4
 	p = ql.Program('qg', num_qubits, platform)
 	k = ql.Kernel('k_bv', platform)
 
@@ -116,6 +116,7 @@ def grover():
 	for q in range (0,num_qubits):
 		k.prepz(q)
 
+	'''
 	# Creating a superposition state
 	k.gate("h",0)
 	k.gate("h",1)
@@ -141,7 +142,22 @@ def grover():
 
 	for q in range (0,num_qubits):
 		k.measure(q)
+	'''
 
+	k.gate("h",0)
+	k.gate("h",1)
+	k.gate("cnot",0,2)
+	k.gate("cnot",1,3)
+
+	k.gate("x",1)
+	k.gate("cnot",1,3)
+	k.gate("x",1)
+
+	k.gate("x",0)
+	#k.gate("toffoli",0,1,3)
+	#k.gate("toffoli",0,1,2)
+	k.gate("x",0)
+	
 	# add the kernel to the program
 	p.add_kernel(k)
 
@@ -172,4 +188,4 @@ def showQasm():
 
 if __name__ == '__main__':
     grover()
-    #showQasm()
+    showQasm()

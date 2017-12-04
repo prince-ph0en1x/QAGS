@@ -1,25 +1,15 @@
-qubits 2
+qubits 4
 
 .k_bv
-    { prepz q0 | prepz q1 }
+    { prepz q0 | prepz q1 | prepz q2 | prepz q3 }
     qwait 7
     { h q0 | h q1 }
     qwait 7
-    cz q0,q1
+    { cnot q0,q2 | cnot q1,q3 }
     qwait 15
-    { h q0 | h q1 }
+    { x q1 | x q0 }
     qwait 7
-    { x q0 | x q1 }
-    qwait 7
-    h q1
-    qwait 7
-    cnot q0,q1
+    { cnot q1,q3 | x q0 }
     qwait 15
-    { h q1 | x q0 }
-    qwait 7
-    { x q1 | h q0 }
-    qwait 7
-    { h q1 | measure q0 }
-    qwait 7
-    measure q1
+    x q1
 
