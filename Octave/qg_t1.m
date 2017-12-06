@@ -1,9 +1,9 @@
 function qg()
-    
+%% Quantum-accelerated Genome-sequencing-analysis : based on Dan Ventura et al. Quantum Associative Memory 
 	clear all
 	clc
 
-	szrg = 20;	% typically 3.0e+09 for Homo-Sapien reference genome
+	szrg = 20;		% typically 3.0e+09 for Homo-Sapien reference genome
 	szsr = 4;		% typically 3.0e+02	for Illumina short reads
 	szA	= 2;		% 4 := {A,C,G,T} = {adenine, cytocine, guanine, thyamine} = {00,01,10,11} = {0,1,2,3}
 	
@@ -15,11 +15,11 @@ function qg()
 	ucdb = unique(cdb,'rows');	% remove duplicate elements
 	v = ones(1,size(ucdb,1));	% values to encode (optional)  
 	qdb = prepQdb(ucdb,v);		% prepare quantum database
-	state = rednDimn(qdb,szss);
+	state = rednDimn(qdb,szss);	% remove uncomputed ancillas
 	
 	plot(state,'-g')
 	hold on
-	state = runSrch(sr,state);
+	state = runSrch(sr,state);	% run Quantum search operation
 	plot(state,'-b')		
 	axis([1 2^szss -1 1])
 	plot([bin2dec(sr)+1; bin2dec(sr)+1], [-1; 1]','-r')
@@ -33,6 +33,7 @@ function qg()
 		% Use runSrchU()
 		% Use Rotation Matrix in Sij
 		% Use wildcard characters in search string
+		% Extend to a Alphabet size of 4+(insert,delete,gap) : insert = ? gap = _ delete = #
 	
 endfunction
 
