@@ -10,6 +10,7 @@ function qg()
 	[~,rg] = randStr(szA,szrg);
 	[~,sr] = randStr(szA,szsr);
 	
+	sr = strrep(sr,'1','?')		% test approximate matching
 	szss = szsr;	% size of search string for DNA fingerprinting (= szsr) for DNA assembly (> szsr)
 	cdb = prepCdb(rg,szss);		% prepare classical database
 	ucdb = unique(cdb,'rows');	% remove duplicate elements
@@ -22,8 +23,9 @@ function qg()
 	state = runSrch(sr,state);	% run Quantum search operation
 	plot(state,'-b')		
 	axis([1 2^szss -1 1])
-	plot([bin2dec(sr)+1; bin2dec(sr)+1], [-1; 1]','-r')
-	text([bin2dec(sr)+1], 0.7*[1], {'Target Pattern'})
+	psr = remWC(szA,sr);
+	plot([psr'+1; psr'+1], [-1; 1]','-r')
+	text([1], 0.7*[1], {'Pattern Matches'})
 	[maxV,maxP] = max(state);
 	plot([1; 2^szss], [maxV; maxV]','-r')
 	text(0.8*[2^szss],[maxV], {'Search Result'})
@@ -32,7 +34,6 @@ function qg()
 	% TBDs
 		% Use runSrchU()
 		% Use Rotation Matrix in Sij
-		% Use wildcard characters in search string
 		% Extend to a Alphabet size of 4+(insert,delete,gap) : insert = ? gap = _ delete = #
 	
 endfunction

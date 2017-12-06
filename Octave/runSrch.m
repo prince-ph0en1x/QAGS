@@ -1,6 +1,6 @@
 function newstate = runSrch(ss,state)
 
-    sn = bin2dec(ss);
+    % sn = bin2dec(ss);
     prec = 10^5;
         
     % Create Non-Unitary Search Operator
@@ -8,9 +8,9 @@ function newstate = runSrch(ss,state)
     Rs = zeros(dim);
     for i = 1:dim
         for j = 1:dim
-            if i == j && distHmng(j-1,sn) >= 1
+            if i == j && distHmngWC(j-1,ss) >= 1
                 Rs(dim-i+1,dim-j+1) = 1;
-            elseif distHmng(j-1,sn) > distHmng(i-1,sn) && distHmng(i-1,sn) >= 1
+            elseif distHmngWC(j-1,ss) > distHmngWC(i-1,ss) && distHmngWC(i-1,ss) >= 1
                 Rs(dim-i+1,dim-j+1) = -1;
             end
         end
