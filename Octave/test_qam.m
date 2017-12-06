@@ -1,7 +1,8 @@
 function test_qam()
-    addpath ("/mnt/7A06EEA206EE5E9F/GoogleDrive/TUD_CE/Thesis/SimQG/Octave/")
+    
     clear all
     clc
+    
     db = ["01";"10";"11"];  % database to encode
     v = [1 1 1];            % values to encode (optional)  
     ss = "11";

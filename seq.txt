@@ -1,0 +1,37 @@
+EXHAUSTIVE SEARCH PATTERN CREATION
+
+-- Algorithm --
+
+Search backward from element for first prefix match, augment with next preference suffix alphabet
+
+-- Example 1 --
+
+Alphabet A in {0,1} : |A| = 2
+Pattern Length N = 2
+String S : |S| = |A|^N + N - 1 = 2^2 + 2 - 1 = 5
+Preference Order: 1 > 0
+Start: 00
+
+0	00		2	11
+1	01		3	10
+
+S := 00110
+
+-- Example 2 --
+
+Alphabet A in {A,C,G,T} : |A| = 4
+Pattern Length N = 3
+String S : |S| = |A|^N + N - 1 = 4^3 + 3 - 1 = 66
+Preference Order: T > G > C > A
+Start: AAA
+
+0	AAA		8	TCT		16	TGC		24	GTC		32	AGT		40	GGG		48	CCG		56	GAA
+1	AAT		9	CTT		17	GCT		25	TCC		33	GTA		41	GGC		49	CGC		57	AAC
+2	ATT		10	TTA		18	CTG		26	CCT		34	TAC		42	GCG		50	GCA		58	ACC
+3	TTT		11	TAT		19	TGA		27	CTC		35	ACT		43	CGG		51	CAG		59	CCC
+4	TTG		12	ATG		20	GAT		28	TCA		36	CTA		44	GGA		52	AGA		60	CCA
+5	TGT		13	TGG		21	ATC		29	CAT		37	TAA		45	GAG		53	GAC		61	CAC
+6	GTT		14	GGT		22	TCG		30	ATA		38	AAG		46	AGC		54	ACG		62	ACA
+7	TTC		15	GTG		23	CGT		31	TAG		39	AGG		47	GCC		55	CGA		63	CAA
+
+S := AAATTTGTTCTTATGGTGCTGATCGTCCTCATAGTACTAAGGGCGGAGCCGCAGACGAACCCACAA
