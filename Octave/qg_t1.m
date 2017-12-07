@@ -3,12 +3,12 @@ function qg()
 	clear all
 	clc
 
-	szrg = 20;		% typically 3.0e+09 for Homo-Sapien reference genome
+	szrg = 10;		% typically 3.0e+09 for Homo-Sapien reference genome
 	szsr = 4;		% typically 3.0e+02	for Illumina short reads
 	szA	= 2;		% 4 := {A,C,G,T} = {adenine, cytocine, guanine, thyamine} = {00,01,10,11} = {0,1,2,3}
 	
-	[~,rg] = randStr(szA,szrg);
-	[~,sr] = randStr(szA,szsr);
+	[~,rg] = randStr(szA,szrg)
+	[~,sr] = randStr(szA,szsr)
 	
 	sr = strrep(sr,'1','?')		% test approximate matching
 	szss = szsr;	% size of search string for DNA fingerprinting (= szsr) for DNA assembly (> szsr)
