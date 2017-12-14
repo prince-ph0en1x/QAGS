@@ -10,7 +10,7 @@ function qg()
 	[~,rg] = randStr(szA,szrg)
 	[~,sr] = randStr(szA,szsr)
 	
-	sr = strrep(sr,'1','?')		% test approximate matching
+%	sr = strrep(sr,'1','?')		% test approximate matching
 	szss = szsr;	% size of search string for DNA fingerprinting (= szsr) for DNA assembly (> szsr)
 	cdb = prepCdb(rg,szss);		% prepare classical database
 	ucdb = unique(cdb,'rows');	% remove duplicate elements

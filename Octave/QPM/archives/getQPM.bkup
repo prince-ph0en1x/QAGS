@@ -1,0 +1,54 @@
+function getQPM()
+	
+	close all
+	clear all
+	clc
+
+	w = [0 0 0 1 0 0 0 1]	% assume exact 1 match exist for p in w
+	p = [1 0]
+	
+	N = size(w,2);
+	M = size(p,2);
+	s = ceil(log2(N-M));
+	qb = s*M;
+	psi = zeros(2^qb,1);
+	for i = 0:N-1
+		jj = "";
+		for j = 0:M-1
+			if i+j > N-1
+				jj = strcat(jj,dec2bin(N-1,s));
+			else
+				jj = strcat(jj,dec2bin(i+j,s));
+			end
+		end
+		psi(bin2dec(jj)+1) = 1/sqrt(N);
+	end
+	plot(psi,'+r');
+	hold on
+	
+	for k = 0:M-1
+		sigma = p(k+1);
+		Q = eye(2^qb);
+		for i = 0:N-1-k
+			if w(i+k+1) == sigma 
+				jj = "";
+				for j = 0:M-1
+					if i+j > N-1
+						jj = strcat(jj,dec2bin(N-1,s));
+					else
+						jj = strcat(jj,dec2bin(i+j,s));
+					end
+				end
+				Q(bin2dec(jj)+1,bin2dec(jj)+1) = -1;
+			end
+		end
+		psi = Q*psi;		
+		psi = mean(psi) - psi;
+	end
+	plot(psi,'.b');
+	
+	i = find(psi == max(psi))
+	plot([i'; i'], [-1; 1]','-k')
+	axis([1 2^(s*M)+1 -1 1])
+	
+endfunction

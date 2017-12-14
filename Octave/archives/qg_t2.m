@@ -1,0 +1,81 @@
+function qg_t2()
+%% Quantum-accelerated Genome-sequencing-analysis : based on Yasser Omar et al. Quantum Pattern Matching 
+	close all
+    clear all
+	clc
+
+	szrg = 4;		% typically 3.0e+09 for Homo-Sapien reference genome
+	szsr = 2;		% typically 3.0e+02	for Illumina short reads
+	szA	= 2;		% 4 := {A,C,G,T} = {adenine, cytocine, guanine, thyamine} = {00,01,10,11} = {0,1,2,3}
+	
+	[~,rg] = randStr(szA,szrg);
+	rg = "0011"
+    %[~,sr] = randStr(szA,szsr);
+	srloc = ceil(rand()*(szrg-szsr+1));
+    sr = rg(srloc:srloc+szsr-1);
+
+    s = log2(szrg)     % WATSON
+    numq = szsr*s+1    % number of qubits required for state preparation
+    
+    state = [1; zeros(2^numq-1,1)];
+    plot(state,'-g')
+	hold on
+    axis([1 2^numq -1 1])
+     
+    X = [0 1; 1 0];
+    H = 1/sqrt(2)*[1 1;1 -1];
+    for i = 0:s-1
+        state = U1(H,i,state);
+    end
+    
+    for j = 1:szsr-1
+        for i = 0:s-1
+            state = U_CX(,j*s+i,state);
+        end
+    end
+    dispState(state,0);
+    return
+    state = U_CX(0,1,state);
+    state = U1(X,0,state);
+    state = U_CX(0,1,state);
+    state = U1(X,0,state);    
+    dispState(state,1);
+    plot(state,'-b')
+	hold on
+    return
+
+    f = prepBFns(rg,szA);
+    for r = 1:2
+        for j = 1:size(sr,2)
+            % Oracle Call
+            if sr(j) == 0
+                % Q0
+                state = U_CX(1,2,state);
+            else
+                % Q1
+                state = U1(X,1,state);
+                state = U_CX(1,2,state);
+                state = U1(X,1,state);
+            end
+            % Amplitude Amplification
+            % SWAP required for |b> ?
+            state = U1(H,0,state);
+            state = U1(H,1,state);
+            state = U1(X,0,state);
+            state = U1(X,1,state);
+            state = U1(H,1,state);
+            state = U_CX(0,1,state);
+            state = U1(H,1,state);
+            state = U1(X,1,state);
+            state = U1(X,0,state);
+            state = U1(H,1,state);
+            state = U1(H,0,state);
+        end
+        dispState(state,0);
+    end
+    plot(state,'or')
+	hold on
+    plot([srloc; srloc], [-1; 1]','-m')
+    axis([1 2^numq -1 1])
+	
+endfunction

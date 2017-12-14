@@ -1,5 +1,11 @@
-function newstate = U_Tf(posc1,posc2,post,state)
-%	fprintf(strcat('toffoli q',num2str(posc1),',q',num2str(posc2),',q',num2str(post),'\n'))
+function newstate = U_Tf(posc1,posc2,post,state,fname)
+
+%	if size(fname,2) > 0
+%		fileID = fopen(fname,'a');
+%		fprintf(fileID,strcat('toffoli q',num2str(posc1),',q',num2str(posc2),',q',num2str(post),'\n'));
+%		fclose(fileID);
+%	end
+
 	if(posc1 > posc2)
 		poscm = posc1;
 		poscl = posc2;
