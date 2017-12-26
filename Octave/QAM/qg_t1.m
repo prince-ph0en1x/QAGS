@@ -1,17 +1,18 @@
 function qg()
-%% Quantum-accelerated Genome-sequencing-analysis : based on Dan Ventura et al. Quantum Associative Memory 
+%% Quantum-accelerated Genome-sequencing-analysis
+% based on Dan Ventura et al. Quantum Associative Memory 
 	clear all
 	clc
 
-	szrg = 10;		% typically 3.0e+09 for Homo-Sapien reference genome
-	szsr = 4;		% typically 3.0e+02	for Illumina short reads
-	szA	= 2;		% 4 := {A,C,G,T} = {adenine, cytocine, guanine, thyamine} = {00,01,10,11} = {0,1,2,3}
+	szrg = 7;	% typically 3.0e+09 for Homo-Sapien reference genome
+	szsr = 3;		% typically 3.0e+02	for Illumina short reads
+	szA	= 2;		% 4 := {A,C,G,T} = {0,1,2,3}
 	
 	[~,rg] = randStr(szA,szrg)
 	[~,sr] = randStr(szA,szsr)
 	
-%	sr = strrep(sr,'1','?')		% test approximate matching
-	szss = szsr;	% size of search string for DNA fingerprinting (= szsr) for DNA assembly (> szsr)
+	sr = strrep(sr,'1','?')		% test approximate matching
+	szss = szsr;	% size of search string for DNA fingerprinting/assembly (=/> szsr)
 	cdb = prepCdb(rg,szss);		% prepare classical database
 	ucdb = unique(cdb,'rows');	% remove duplicate elements
 	v = ones(1,size(ucdb,1));	% values to encode (optional)  
