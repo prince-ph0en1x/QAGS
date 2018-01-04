@@ -41,10 +41,42 @@ qubits 10
    toffoli q0,q1,q6
    x q0
 
-.QCirc2t
+.QCirc2a
+   x q0
    x q1
+   x q2
+   h q2
    toffoli q0,q1,q2
+   h q2
+   x q0
    x q1
+   x q2
+   x q0
+   x q1
+   h q2
+   toffoli q0,q1,q2
+   h q2
+   x q0
+   x q1
+   x q0
+   x q2
+   h q2
+   toffoli q0,q1,q2
+   h q2
+   x q0
+   x q2
+   x q0
+   h q2
+   toffoli q0,q1,q2
+   h q2
+   x q0
+   x q1
+   x q2
+   h q2
+   toffoli q0,q1,q2
+   h q2
+   x q1
+   x q2
 
 .QCirc3
    h q0
@@ -83,21 +115,20 @@ qubits 10
    x q5
    h q5
 
-.QCirc2a
-   toffoli q3,q4,q5
+.QCirc2c
    x q4
-   x q3
+   h q5
    toffoli q3,q4,q5
+   h q5
    x q4
-   x q3
    x q5
+   h q5
    toffoli q3,q4,q5
+   h q5
    x q5
-   x q5
-   x q3
+   h q5
    toffoli q3,q4,q5
-   x q5
-   x q3
+   h q5
 
 .QCirc3
    h q0

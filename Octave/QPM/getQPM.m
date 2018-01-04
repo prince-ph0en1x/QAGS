@@ -7,8 +7,8 @@ function getQPM()
 	
 	qasm = 0;
 	E = 2
-	w = [0 0 0 1 1 0 1 0]
-	p = [1 1]
+	w = [0 0 0 0 1 1 1 1] %[0 0 0 1 1 0 1 0]
+	p = [0 1] %[1 1]
 	
 	H = 1/sqrt(2)*[1 1;1 -1];
 	X = [0 1;1 0];	
@@ -84,9 +84,13 @@ function getQPM()
 	plot(psi,'.b');
 	
 	% Measure first component
+	figure(2)
+	hold on
 	if qasm == 1 fprintf("\n"); end
-	i = find(psi == max(psi));
+	amp = psi.^2;
+	plot(amp,'.b');
+	i = find(amp == max(amp));
 	floor(i/(2^s))'
-	plot([i'; i'], [-1; 1]','-k')
+	plot([i'; i'], [0; 1]','-k')
 	
 endfunction

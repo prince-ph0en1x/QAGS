@@ -52,12 +52,48 @@ qubits 10
     x q0
 
 
-.QCirc2t
-    x q1
+.QCirc2a
+    { x q0 | x q1 | x q2 }
+    qwait 7
+    h q2
     qwait 7
     toffoli q0,q1,q2
     qwait 31
-    x q1
+    { h q2 | x q0 | x q1 }
+    qwait 7
+    { x q2 | x q0 | x q1 }
+    qwait 7
+    h q2
+    qwait 7
+    toffoli q0,q1,q2
+    qwait 31
+    { h q2 | x q0 | x q1 }
+    qwait 7
+    { x q0 | x q2 }
+    qwait 7
+    h q2
+    qwait 7
+    toffoli q0,q1,q2
+    qwait 31
+    { h q2 | x q0 }
+    qwait 7
+    { x q2 | x q0 }
+    qwait 7
+    h q2
+    qwait 7
+    toffoli q0,q1,q2
+    qwait 31
+    { h q2 | x q0 | x q1 }
+    qwait 7
+    x q2
+    qwait 7
+    h q2
+    qwait 7
+    toffoli q0,q1,q2
+    qwait 31
+    { h q2 | x q1 }
+    qwait 7
+    x q2
 
 
 .QCirc3
@@ -98,24 +134,28 @@ qubits 10
     { h q0 | h q1 }
 
 
-.QCirc2a
-    toffoli q3,q4,q5
-    qwait 31
-    { x q4 | x q3 }
+.QCirc2c
+    { x q4 | h q5 }
     qwait 7
     toffoli q3,q4,q5
     qwait 31
-    { x q4 | x q3 | x q5 }
-    qwait 7
-    toffoli q3,q4,q5
-    qwait 31
-    { x q5 | x q3 }
+    { h q5 | x q4 }
     qwait 7
     x q5
     qwait 7
+    h q5
+    qwait 7
     toffoli q3,q4,q5
     qwait 31
-    { x q5 | x q3 }
+    h q5
+    qwait 7
+    x q5
+    qwait 7
+    h q5
+    qwait 7
+    toffoli q3,q4,q5
+    qwait 31
+    h q5
 
 
 .QCirc3

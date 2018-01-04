@@ -1,4 +1,4 @@
-## Version Plan: Use pattern extension for genome sequencing
+## Version Plan: Get results with binary sequence (same as Matlab from QX Sim)
 
 ## Reference: Quantum Pattern Matching - P. Mateus et al.
 
@@ -17,11 +17,11 @@ import os
 def QPM():
 	
 	N = 8				# Reference Genome size
-	w = randStr(4,N)	# Reference Genome
+	w = "00000111" #randStr(2,N)	# Reference Genome
 	M = 2				# Short Read size
-	p = randStr(4,M)	# Short Read
+	p = "01" #randStr(2,M)	# Short Read
 	s = ceil(log2(N-M))
-
+	print(s)
 	config_fn = os.path.join('qg_v0p1.json')
 	platform = ql.Platform('platform_none', config_fn)
 
@@ -92,11 +92,15 @@ def QPM():
 
 	# Run multiple times to get average result
 	#qk4 = ql.Kernel('QCirc4',platform)
-	#qk4.measure(0)	
+	#qk4.measure(9)
+	#qk4.measure(8)
+	#qk4.measure(7)
+	#qk4.measure(6)
+	#prog.add_kernel(qk4)
 
 	prog.compile(False, "ASAP", False)
 	display()
-	showQasm(1)
+	#showQasm(1)
 	return
 
 def Circ1(k,s,M):
@@ -113,24 +117,29 @@ def Circ1(k,s,M):
 			for sj in range(Mi*s+s-1,Mi*s+s-1-si-1,-1):
 				nc.insert(0,sj)
 			for sj in range(Mi*s+s+s-1,Mi*s+s+s-1-si-1,-1):
-				nCX(k,nc,sj,s*M)
+				nCX(k,nc,sj,s*M)		
 			k.gate("x",Mi*s+s-1-si)
 	return
 
 def Circ2(k,f,s,q,anc):
 	for fi in range(0,len(f)):
+		#print(fi)
 		if f[fi]:
 			fis = format(fi,'0'+str(s)+'b')
+			#print(fis)
 			for fisi in range(0,s):
-				if fis[fisi] == '1':
-					k.gate("x",q+s-fisi-1)
+				if fis[fisi] == '0':
+					k.gate("x",q+fisi)
+			k.gate("h",q+s-1)
 			nc = []
 			for qsi in range(q,q+s-1):
 				nc.append(qsi)
+			#print(nc)
 			nCX(k,nc,q+s-1,anc)
+			k.gate("h",q+s-1)
 			for fisi in range(0,s):
-				if fis[fisi] == '1':
-					k.gate("x",q+s-fisi-1)	
+				if fis[fisi] == '0':
+					k.gate("x",q+fisi)
 	return
 
 def Circ3(k,s,M):
