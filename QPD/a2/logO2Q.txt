@@ -1,0 +1,11 @@
+[OPENQL] /media/aritra/DATA/GoogleDrive/TUD_CE/Thesis/SimQG/OpenQL/ql/program.h:209 writing un-scheduled qasm to 'test_output/qg.qasm' ...
+[OPENQL] /media/aritra/DATA/GoogleDrive/TUD_CE/Thesis/SimQG/OpenQL/ql/program.h:319 writing scheduled qasm to 'test_output/qg_scheduled.qasm' ...
+[OPENQL] /media/aritra/DATA/GoogleDrive/TUD_CE/Thesis/SimQG/OpenQL/ql/program.h:216 Warning: no eqasm compiler has been specified in the configuration file, only qasm code has been compiled.
+['000', '1100']
+['001', '1001']
+['010', '0010']
+['011', '0101']
+['100', '1010']
+['101', '0100']
+['110', '1000']
+['111', '0001']

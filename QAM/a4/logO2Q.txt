@@ -1,0 +1,27 @@
+['000', '302']
+['001', '020']
+['010', '203']
+['011', '031']
+['100', '310']
+['101', '102']
+['110', '021']
+['111', '211']
+[0, 2.787881005115189]
+[1, 6.175790909751763]
+[2, 9.563700814388337]
+[3, 12.951610719024911]
+[4, 16.339520623661485]
+[5, 19.727430528298054]
+[6, 23.11534043293463]
+[7, 26.503250337571203]
+[8, 29.89116024220778]
+[0.7974999999999999, 12.951610719024911]
+
+Traceback (most recent call last):
+  File "/mnt/7A06EEA206EE5E9F/GoogleDrive/TUD_CE/Thesis/SimQG/QaGs/QAM/a4/qam_a4.py", line 360, in <module>
+    QBAM()
+  File "/mnt/7A06EEA206EE5E9F/GoogleDrive/TUD_CE/Thesis/SimQG/QaGs/QAM/a4/qam_a4.py", line 115, in QBAM
+    prog.compile(False, "ASAP", False)
+  File "/home/aritra/.local/lib/python3.5/site-packages/openql-0.3.1-py3.5.egg/openql/openql.py", line 1102, in compile
+    return _openql.Program_compile(self, *args, **kwargs)
+TypeError: in method 'Program_compile', argument 4 of type 'std::string'

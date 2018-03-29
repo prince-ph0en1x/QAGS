@@ -1,0 +1,23 @@
+[OPENQL] /mnt/7A06EEA206EE5E9F/GoogleDrive/TUD_CE/Thesis/SimQG/Qxelerator/OpenQL/ql/program.h:194 Info: compiling ...
+[OPENQL] /mnt/7A06EEA206EE5E9F/GoogleDrive/TUD_CE/Thesis/SimQG/Qxelerator/OpenQL/ql/program.h:210 Info: writing un-scheduled qasm to 'test_output/qg.qasm' ...
+[OPENQL] /mnt/7A06EEA206EE5E9F/GoogleDrive/TUD_CE/Thesis/SimQG/Qxelerator/OpenQL/ql/program.h:297 Info: scheduling the quantum program
+[OPENQL] /mnt/7A06EEA206EE5E9F/GoogleDrive/TUD_CE/Thesis/SimQG/Qxelerator/OpenQL/ql/kernel.h:750 Info: ASAP scheduling the quantum kernel 'QCirc1'...
+[OPENQL] /mnt/7A06EEA206EE5E9F/GoogleDrive/TUD_CE/Thesis/SimQG/Qxelerator/OpenQL/ql/kernel.h:750 Info: ASAP scheduling the quantum kernel 'QCirc3'...
+[OPENQL] /mnt/7A06EEA206EE5E9F/GoogleDrive/TUD_CE/Thesis/SimQG/Qxelerator/OpenQL/ql/program.h:314 Info: writing scheduled qasm to 'test_output/qg_scheduled.qasm' ...
+[OPENQL] /mnt/7A06EEA206EE5E9F/GoogleDrive/TUD_CE/Thesis/SimQG/Qxelerator/OpenQL/ql/program.h:217 Warning: no eqasm compiler has been specified in the configuration file, only qasm code has been compiled.
+7
+['000', '111']
+['001', '111']
+['010', '010']
+['011', '011']
+['100', '100']
+['101', '101']
+['110', '110']
+['111', '111']
+[1, 2, 3, 4, 5]
+['010', '010']
+['011', '011']
+['100', '100']
+['101', '101']
+['110', '110']
+['111', '111']

@@ -1,0 +1,28 @@
+
+  =======================================================================================================
+       _______                                                                                       
+      /  ___   \   _  __      ____   ____   __  ___  __  __   __    ___   ______  ____    ___         
+     /  /   /  |  | |/_/     / __/  /  _/  /  |/  / / / / /  / /   / _ | /_  __/ / __ \  / _ \        
+    /  /___/  /  _>  <      _\ \   _/ /   / /|_/ / / /_/ /  / /__ / __ |  / /   / /_/ / / , _/        
+    \______/\__\ /_/|_|    /___/  /___/  /_/  /_/  \____/  /____//_/ |_| /_/    \____/ /_/|_|         
+                                                                                              [v0.1 beta]
+  _______________________________________________________________________________________________________
+  [version 0.1 beta - Nader Khammassi - TU Delft, QuTech - 2016 - report bugs to: n.khammassi@tudelft.nl]
+  [released under Apache License 2.0 terms, license copy at:  http://www.apache.org/licenses/LICENSE-2.0]
+  ======================================================================================================= 
+
+[+] loading circuit from '/mnt/7A06EEA206EE5E9F/GoogleDrive/TUD_CE/Thesis/SimQG/QaGs/QAM/a4/qam_a4.qasm' ...
+[-] loading quantum_code file '/mnt/7A06EEA206EE5E9F/GoogleDrive/TUD_CE/Thesis/SimQG/QaGs/QAM/a4/qam_a4.qasm'...
+[+] code loaded successfully. 
+[+] initializing xpu...
+[+] initialized.
+[+] creating quantum register of 14 qubits... 
+[+] executing circuit 'qcirc' (1 iter) ...
+--------------[quantum state]-------------- 
+   (+1.000000,+0.000000) |00000000000000> +
+------------------------------------------- 
+[>>] measurement prediction:  | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+------------------------------------------- 
+[>>] measurement register  :  | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+------------------------------------------- 
+[+] circuit execution time: +0.001076 sec.
