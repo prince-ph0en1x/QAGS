@@ -56,6 +56,8 @@ def QPM():
 	
 	# Kernel 1: Initialization
 	qk1 = ql.Kernel('QCirc1',platform)
+	#qk1.rz(0,0.25)
+	qk1.gate("rz",[1], 40, 0.3)
 	Circ1(qk1)
 
 	# Kernel 2: Oracles to mark specific character
