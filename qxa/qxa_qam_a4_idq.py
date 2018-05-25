@@ -1,4 +1,5 @@
-## Reference:Fast quantum search algorithms in protein sequence comparison: Quantum bioinformatics - L. Hollenberg (arXiv preprint quant-ph/0002076)
+## Reference: Quantum associative memory with improved distributed queries - J.P.T. Njafa, S.G.N. Engo, P. Woafo 
+## Reference: Quantum algorithms for pattern matching in genomic sequences - A. Sarkar
 ## \author: Aritra Sarkar (prince-ph0en1x)
 ## \project: Quantum-accelerated Genome-sequencing
 ## \repo: https://gitlab.com/prince-ph0en1x/QaGs
@@ -34,13 +35,9 @@ def randStr(szA,sz):
 
 AS = {'00','01','10','11'}	# Alphabet set {0,1,2,3} := {A,C,G,T} for DNA Nucleotide bases
 A = len(AS)					# Alphabet size		
-N = 15						# Reference Genome size
-#w = randStr(4,N)			# Reference Genome 	(e.g. w = "2302031020")
-w = "332313022120110"		# Reference Genome: "TTGTCTAGGCGACCA"
+N = 16						# Reference Genome size
+w = "0332313022120110"		# Reference Genome: "ATTGTCTAGGCGACCA"
 M = 2						# Short Read size				
-#ans = 1					# Known answer for testing
-#dummyp = "000"
-#p = w[ans:ans+M]			# Short Read
 p = "00"					# Short Read: "AA"
 
 Q_A = ceil(log2(A))			# Number of qubits to encode one character
@@ -70,29 +67,29 @@ def QAM():
 	qk3 = ql.Kernel('QCirc3',platform)
 	Circ3(qk3)
 
-	# Kernel 3: Oracle to Mark Memory States
-	qk3 = ql.Kernel('QCirc3',platform)
-	Circ3(qk3)
-
 	# Kernel 4: Grover Amplitude Amplification
 	qk4 = ql.Kernel('QCirc4',platform)
 	Circ4(qk4)
 
-	# Kernel 5: Measurement
+	# Kernel 5: Oracle to Mark Memory States
 	qk5 = ql.Kernel('QCirc5',platform)
-	Circ5(qk5)	
+	Circ5(qk5)
+
+	# Kernel 6: Measurement
+	qk6 = ql.Kernel('QCirc6',platform)
+	Circ6(qk6)	
 
 	# Construct Program from Kernels
 	prog.add_kernel(qk1)			# Initialise
 	prog.add_kernel(qk2)			# Transform to Hamming distance
 	prog.add_kernel(qk3)			# Oracle call
 	prog.add_kernel(qk4)			# Inversion about mean
-	'''
-	for r in range(0,1):
+	prog.add_kernel(qk5)			# Memory Oracle
+	prog.add_kernel(qk4)			# Inversion about mean
+	for r in range(0,3):
 		prog.add_kernel(qk3)		# Oracle call
 		prog.add_kernel(qk4)		# Inversion about mean
-	# prog.add_kernel(qk5)			# Uncomment if using measurement based analytics	
-	'''
+	# prog.add_kernel(qk6)			# Uncomment if using measurement based analytics	
 	prog.compile()
 	# showQasm()
 	qx = qxelarator.QX()
@@ -101,10 +98,8 @@ def QAM():
 	# Result analytics using Internal State Vector
 	qx.execute()
 	qxopt = qx.get_state()
-	#print(qxopt)
 	isv = [0]*(2**total_qubits)
-	#ptrn = re.compile('\(([+-]\d+.\d*),([+-]\d+[.\d*]?)\)\s[|]([0-1]*)>')
-	ptrn = re.compile('\(([+-]\d+.\d*)e?(-\d*)?,([+-]\d+.\d*)e?(-\d*)?\)\s[|]([0-1]*)>')
+	ptrn = re.compile('\(([+-]\d+.?\d*)e?(-\d*)?,([+-]\d+.?\d*)e?(-\d*)?\)\s[|]([0-1]*)>')
 	for line in qxopt.splitlines():
 		mtch = ptrn.search(line)
 		if mtch != None:
@@ -119,14 +114,16 @@ def QAM():
 			state = int(mtch.group(5),2)
 			isv[state] = ar**2 + ac**2
 	ploty = isv
-	print(sum(isv))
-	print("PMax:", np.amax(ploty))
-	tag = format(np.argmax(ploty),'0'+str(total_qubits-1)+'b')[::-1]
-	print(tag)
-	#print("Index:", int(tag[0:3],2))
-	plt.plot(ploty)
+	isvt = [0]*(2**4)
+	for tagi in range(0,2**total_qubits):
+		if isv[tagi] > 0.03:
+			ti = format(tagi,'0'+str(total_qubits)+'b')
+			isvt[int(ti[:4:-1],2)] = isv[tagi]
+	for tagi in range(0,16):
+		print(tagi,isvt[tagi])
+	plt.plot(isv)
 	plt.ylabel('Probability')
-	plt.xlabel('State space')
+	plt.xlabel('Index')
 	plt.ylim([0,1])
 	plt.show()
 	return
@@ -136,6 +133,7 @@ def QAM():
 def Circ1(k):
 	for Qi in range(0,total_qubits):# Initialise all qubits to |0> state
 		k.prepz(Qi)
+	# MSQ : ~~~~ m1a0 m1a1 m0a0 m0a1 t0 t1 t2 t3 ~~~~ : LSQ
 	for Qi in range(0,Q_T):			# Uniform superposition of possible starting positions (answers)
 		k.gate("h",[Qi])
 	nc = []
@@ -147,7 +145,7 @@ def Circ1(k):
 			if Qis[Qisi] == '0':
 				k.gate("x",[Qisi])
 		wMi = w[Qi:Qi+M]
-		# print([Qis,wMi])
+		print([Qis,wMi])
 		for wisi in range(0,M):
 			wisia = format(int(wMi[wisi]),'0'+str(Q_A)+'b')
 			for wisiai in range(0,Q_A):
@@ -162,7 +160,6 @@ def Circ1(k):
 		for Qisi in range(0,Q_T):
 			if Qis[Qisi] == '0':
 				k.gate("x",[Qisi])
-		# print([Qis,wMi])
 		for wisi in range(0,M):
 			wisia = format(int(wMi[wisi]),'0'+str(Q_A)+'b')
 			for wisiai in range(0,Q_A):
@@ -182,22 +179,6 @@ def Circ2(k):
 			if ppi[ppii] == '1':
 				k.gate("x",[Q_T+pi*Q_A+ppii])
 	return
-
-#############################################################################################
-	
-'''
-def Circ3(k):
-	for Qi in range(0,Q_D):			# Encode binary value 0 of function input
-		k.gate("x",[Q_T+Qi]) 
-	k.gate("h",[Q_D+Q_T-1])			# CPhase to CNOT conversion
-	nc = []
-	for qsi in range(Q_T,Q_T+Q_D-1):
-		nc.append(qsi)
-	nCX(k,nc,Q_D+Q_T-1,anc)			# Decompose multi-controlled CNOT
-	k.gate("h",[Q_D+Q_T-1])			# Uncompute CPhase to CNOT conversion
-	for Qi in range(0,Q_D):			# Uncompute binary value of function input
-		k.gate("x",[Q_T+Qi]) 
-'''
 
 #############################################################################################
 
@@ -742,8 +723,7 @@ def Circ4(k):
 	nc = []
 	for sj in range(0,Q_D+Q_T-1):
 		nc.append(sj)
-	print(nc)
-	nCX(k,nc,Q_D+Q_T-1,anc)		# Decompose multi-controlled CNOT
+	nCX(k,nc,Q_D+Q_T-1,anc)			# Decompose multi-controlled CNOT
 	k.gate("h",[Q_D+Q_T-1])			# Uncompute CPhase to CNOT conversion
 	for si in range(0,Q_D+Q_T):
 		k.gate("x",[si])
@@ -753,11 +733,32 @@ def Circ4(k):
 #############################################################################################
 
 def Circ5(k):
+	nc = []
+	for qsi in range(0,Q_T+Q_D-1):
+		nc.append(qsi)
+	for Qi in range(0,N-M+1):
+		Qis = format(Qi,'0'+str(Q_T)+'b')
+		wMi = w[Qi:Qi+M]
+		wt = Qis
+		for wisi in range(0,M):
+			wisia = format(int(wMi[wisi]),'0'+str(Q_A)+'b')
+			wt = wt+wisia
+		#print(wt)
+		for Qisi in range(0,Q_T+Q_D):
+			if wt[Qisi] == '0':
+				k.gate("x",[Qisi])
+			k.gate("h",[Q_D+Q_T-1])			# CPhase to CNOT conversion
+			nCX(k,nc,Q_D+Q_T-1,anc)			# Decompose multi-controlled CNOT
+			k.gate("h",[Q_D+Q_T-1])			# Uncompute CPhase to CNOT conversion
+			if wt[Qisi] == '0':
+				k.gate("x",[Qisi])
+			
+#############################################################################################
+
+def Circ6(k):
 	#k.display()
-	'''
-	for si in range(0,s):			# Measure first set of positions
+	for si in range(0,Q_T):			# Measure tag positions
 		k.gate("measure",[si])
-	'''
 	return
 
 #############################################################################################
