@@ -42,18 +42,18 @@ function mtlb_qam_a4_idq()
 	%% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ TEST ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     
 	s = ones(1,16);
-	s(1) = 0;	% AA
-	s(4) = 0;	% AT
-	s(16) = 3;	% TT
+% 	s(1) = 0;	% AA
+% 	s(4) = 0;	% AT
+% 	s(16) = 3;	% TT
 	s = sqrt(s/SS);					% Prepare initial state
 	plot([0:SS-1],abs(s).^2,'^-.r')
 
 	s = (BOD*s')';				% Distributed Query
-	s = -s + 2*mean(s);			% Diffuse
-	s = -s;						% Memorised Oracle
-	s(1) = -s(1);
-	s(4) = -s(4);
-	s = -s + 2*mean(s);			% Diffuse
+% 	s = -s + 2*mean(s);			% Diffuse
+% 	s = -s;						% Memorised Oracle
+% 	s(1) = -s(1);
+% 	s(4) = -s(4);
+% 	s = -s + 2*mean(s);			% Diffuse
 	plot([0:SS-1],abs(s).^2,'s-m')
 	axis([0 SS-1 0 1])
 	legend('Distributed Query','Quantum Memory','Final State')

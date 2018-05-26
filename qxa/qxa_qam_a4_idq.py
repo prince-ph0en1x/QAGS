@@ -36,9 +36,9 @@ def randStr(szA,sz):
 AS = {'00','01','10','11'}	# Alphabet set {0,1,2,3} := {A,C,G,T} for DNA Nucleotide bases
 A = len(AS)					# Alphabet size		
 N = 16						# Reference Genome size
-w = "0332313022120110"		# Reference Genome: "ATTGTCTAGGCGACCA"
+w = "0033231302212011"		# Reference Genome: "ATTGTCTAGGCGACCA"
 M = 2						# Short Read size				
-p = "00"					# Short Read: "AA"
+p = "10"					# Short Read: "AA"
 
 Q_A = ceil(log2(A))			# Number of qubits to encode one character
 Q_D = Q_A * M				# Number of data qubits
@@ -91,10 +91,9 @@ def QAM():
 		prog.add_kernel(qk4)		# Inversion about mean
 	# prog.add_kernel(qk6)			# Uncomment if using measurement based analytics	
 	prog.compile()
-	# showQasm()
 	qx = qxelarator.QX()
 	qx.set('test_output/qam_a4.qasm')
-	
+
 	# Result analytics using Internal State Vector
 	qx.execute()
 	qxopt = qx.get_state()
@@ -120,7 +119,7 @@ def QAM():
 			ti = format(tagi,'0'+str(total_qubits)+'b')
 			isvt[int(ti[:4:-1],2)] = isv[tagi]
 	for tagi in range(0,16):
-		print(tagi,isvt[tagi])
+		print("Tag : ", tagi, "\t probability ",round(isvt[tagi],5))
 	plt.plot(isv)
 	plt.ylabel('Probability')
 	plt.xlabel('Index')
@@ -741,9 +740,9 @@ def Circ5(k):
 		wMi = w[Qi:Qi+M]
 		wt = Qis
 		for wisi in range(0,M):
-			wisia = format(int(wMi[wisi]),'0'+str(Q_A)+'b')
+			hd = int(format(int(wMi[wisi]),'0'+str(Q_A)+'b'),2) ^ int(format(int(p[wisi]),'0'+str(Q_A)+'b'),2)
+			wisia = format(hd,'0'+str(Q_A)+'b')
 			wt = wt+wisia
-		#print(wt)
 		for Qisi in range(0,Q_T+Q_D):
 			if wt[Qisi] == '0':
 				k.gate("x",[Qisi])
@@ -779,16 +778,6 @@ def nCX(k,c,t,b):
 		nCX(k,c1,b,nch+1)
 		nCX(k,c2,t,nch-1)
 	return
-
-#############################################################################################
-
-def showQasm():
-	file = open("test_output/qam_a4.qasm","r")
-	print("\n~~~~~ CODE FILE ~~~~~\n")
-	for line in file:
-		print (line,end='')
-	print ()
-	file.close()
 
 #############################################################################################
 
