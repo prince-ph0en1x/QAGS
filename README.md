@@ -4,7 +4,7 @@ Quantum Accelerated Genome Sequencing
 
 ### Info
 
-This repository hosts accompanying codes for Aritra Sarkar's Master thesis in Computer Engineering at Delft University of Technology.
+This repository hosts accompanying codes for Aritra Sarkar's Master thesis in [Computer Engineering](https://www.tudelft.nl/en/education/programmes/masters/computer-engineering/msc-computer-engineering/) at [Delft University of Technology](https://www.tudelft.nl/en/).
 
 The research was conducted in the period 01-11-2017 to 22-06-2018 at the [Quantum Computer Architecture lab](https://www.tudelft.nl/en/eemcs/the-faculty/departments/quantum-computer-engineering/quantum-computer-architecture-lab/) under the supervision of Prof. Dr. Koen Bertels, Dr. Carmen G. Almudever and Dr. Zaid Al-Ars.
 
@@ -22,8 +22,8 @@ This approach gives a quadratic speedup over the classical algorithm. A full imp
 
 ### Algorithms
 
-The codes are written in Python, using the [OpenQL quantum compiler](https://github.com/QE-Lab/OpenQL) and [Qxelerator simulator encapsulator](https://github.com/QE-Lab/qx-simulator/tree/master/qxelarator) for [QX quantum simulator]((http://quantum-studio.net/)).
-The MATLAB/Octave helper codes are derived from Qubiter CSD to help in decomposing an arbitrary unitary into quantum unitary gates.
+The codes are written in Python, using the [OpenQL quantum compiler](https://github.com/QE-Lab/OpenQL) and [Qxelerator simulator encapsulator](https://github.com/QE-Lab/qx-simulator/tree/master/qxelarator) for [QX quantum simulator](http://quantum-studio.net/).
+The MATLAB/Octave helper codes are derived from [Qubiter](https://github.com/artiste-qb-net/qubiter) CSD to help in decomposing an arbitrary unitary into quantum unitary gates.
 Work is in progress in integrating [unitary decomposition as part of OpenQL](https://github.com/QE-Lab/OpenQL/issues/205).
 
 * [Quantum Associative Memory](https://github.com/prince-ph0en1x/QAGS/tree/master/QAM)
